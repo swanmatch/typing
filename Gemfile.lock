@@ -112,6 +112,7 @@ DEPENDENCIES
   bundler
   byebug
   hashie
+  pastel
   romkan
   tty
 
