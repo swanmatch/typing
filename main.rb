@@ -3,7 +3,7 @@ Bundler.require
 
 ECMA_CSI = "\e[".freeze
 def clear_line
-  output.print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
+  print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
 end
 
 CENTENCE_NUM = 10
@@ -15,7 +15,7 @@ miss = 0
 all_time = 0
 
 yml_file = ARGV[0] || "default"
-questions = yaml = YAML.load_file("questions/#{yml_file}.yml")[:questions]
+questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
 puts "Start Typing...!!"
 
@@ -42,22 +42,22 @@ CENTENCE_NUM.times do
       answer << buffer
       success += 1
     end
-    # ClearLine
-    print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
+    clear_line
+    missed = false
     question[:kana].each_char.with_index do |char, i|
       if i < answer.to_kana.length
-        if answer.to_kana[i] == char
+        if answer.to_kana[i] == char && !missed
           print pastel.on_blue(char)
         else
           print pastel.on_red(char)
+          missed = true
         end
       else
         print char
       end
     end
   end
-  end_at = Time.now
-  all_time += end_at - start_at
+  all_time += Time.now - start_at
 end
 
 puts ""

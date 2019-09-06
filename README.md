@@ -1,6 +1,6 @@
 # Typing
 
-## Usage/利用法
+## Usage/利用方法
 
 ```sh
 # first
