@@ -28,7 +28,7 @@ CENTENCE_NUM.times do
   first = true
   puts question[:kanji]
   print question[:kana]
-  while question[:kana] != answer.to_kana do
+  while question[:kana] != answer.to_kana
     buffer = reader.read_char
     if first
       start_at = Time.now
