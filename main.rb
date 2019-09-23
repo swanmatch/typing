@@ -14,21 +14,21 @@ success = 0
 miss = 0
 all_time = 0
 
-yml_file = ARGV[0] || "default"
+yml_file = ARGV[0] || 'default'
 questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
-puts "Start Typing...!!"
+puts 'Start Typing...!!'
 
 CENTENCE_NUM.times do
-  puts ""
-  puts ""
+  puts ''
+  puts ''
   question = questions.sample
   answer = ''
   buffer = ''
   first = true
   puts question[:kanji]
   print question[:kana]
-  while question[:kana] != answer.to_kana do
+  while question[:kana] != answer.to_kana
     buffer = reader.read_char
     if first
       start_at = Time.now
@@ -60,13 +60,12 @@ CENTENCE_NUM.times do
   all_time += Time.now - start_at
 end
 
-puts ""
-puts ""
-puts "**************************************"
+puts ''
+puts ''
+puts '**************************************'
 puts "  Diff   : #{all_time.round(2)}s"
 puts "  Touch  : #{success}"
 puts "  Miss   : #{miss}"
 puts "  Speed  : #{(success / all_time * 60).round}word/minute"
 puts "  Correct: #{(success / (success + miss).to_f).round(2) * 100}%"
-puts "**************************************"
-
+puts '**************************************'
