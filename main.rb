@@ -19,10 +19,9 @@ questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
 puts 'Start Typing...!!'
 
-CENTENCE_NUM.times do
+questions.sample(CENTENCE_NUM).each do |question|
   puts ''
   puts ''
-  question = questions.sample
   answer = ''
   buffer = ''
   first = true
