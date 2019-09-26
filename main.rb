@@ -10,7 +10,7 @@ end
 # `--norandom` option
 option_param = {}
 options = OptionParser.new
-options.on('--norandom') { option_param[:norandom] = true }
+options.on('--norandom', 'disable randomly selected question') { option_param[:norandom] = true }
 options.parse!(ARGV)
 
 reader = TTY::Reader.new
