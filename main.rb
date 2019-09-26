@@ -7,7 +7,11 @@ def clear_line
   print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
 end
 
-centence_num = 10
+# `--norandom` option
+option_param = {}
+options = OptionParser.new
+options.on('--norandom') { option_param[:norandom] = true }
+options.parse!(ARGV)
 
 reader = TTY::Reader.new
 pastel = Pastel.new
@@ -18,12 +22,23 @@ all_time = 0
 yml_file = ARGV[0] || 'default'
 questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
+centence_num = if !option_param[:norandom]
+                 10
+               else
+                 questions.length
+               end
+
 puts 'Start Typing...!!'
 
-centence_num.times do
+centence_num.times do |index|
   puts ''
   puts ''
-  question = questions.sample
+  question = if !option_param[:norandom]
+               questions.sample
+             else
+               questions[index]
+             end
+
   answer = ''
   buffer = ''
   first = true
