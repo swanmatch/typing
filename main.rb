@@ -7,7 +7,7 @@ def clear_line
   print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
 end
 
-CENTENCE_NUM = 10
+centence_num = 10
 
 reader = TTY::Reader.new
 pastel = Pastel.new
@@ -20,7 +20,7 @@ questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
 puts 'Start Typing...!!'
 
-CENTENCE_NUM.times do
+centence_num.times do
   puts ''
   puts ''
   question = questions.sample
