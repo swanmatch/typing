@@ -1,3 +1,4 @@
+require 'optparse'
 require 'bundler'
 Bundler.require
 
@@ -6,7 +7,11 @@ def clear_line
   print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
 end
 
-CENTENCE_NUM = 10
+# `--norandom` option
+option_param = {}
+options = OptionParser.new
+options.on('--norandom', 'disable randomly selected question') { option_param[:norandom] = true }
+options.parse!(ARGV)
 
 reader = TTY::Reader.new
 pastel = Pastel.new
@@ -17,11 +22,23 @@ all_time = 0
 yml_file = ARGV[0] || 'default'
 questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
+centence_num = if !option_param[:norandom]
+                 10
+               else
+                 questions.length
+               end
+
 puts 'Start Typing...!!'
 
-questions.sample(CENTENCE_NUM).each do |question|
+centence_num.times do |index|
   puts ''
   puts ''
+  question = if !option_param[:norandom]
+               questions.sample
+             else
+               questions[index]
+             end
+
   answer = ''
   buffer = ''
   first = true
