@@ -22,7 +22,7 @@ all_time = 0
 yml_file = ARGV[0] || 'default'
 questions = YAML.load_file("questions/#{yml_file}.yml")[:questions]
 
-centence_num = if !option_param[:norandom]
+CENTENCE_NUM = if !option_param[:norandom]
                  10
                else
                  questions.length
@@ -30,15 +30,10 @@ centence_num = if !option_param[:norandom]
 
 puts 'Start Typing...!!'
 
-centence_num.times do |index|
+questions.sample(CENTENCE_NUM).each_with_index do |question, index|
   puts ''
   puts ''
-  question = if !option_param[:norandom]
-               questions.sample
-             else
-               questions[index]
-             end
-
+  question = questions[index] if option_param[:norandom]
   answer = ''
   buffer = ''
   first = true
